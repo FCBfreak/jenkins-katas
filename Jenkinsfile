@@ -55,8 +55,11 @@ pipeline {
     }
 
     stage('push docker app') {
+      when {
+        branch 'master'
+      }
       environment {
-        docker_username = 'fcbfreak'
+        docker_username = 'fcbfreak222'
         DOCKERCREDS = credentials('Docker')
       }
       steps {
@@ -64,6 +67,19 @@ pipeline {
         sh 'ci/build-docker.sh'
         sh 'echo "$DOCKERCREDS_PSW" | docker login -u "$DOCKERCREDS_USR" --password-stdin'
         sh 'ci/push-docker.sh'
+      }
+    }
+
+    stage('Component Test') {
+      when {
+        not {
+          branch 'dev/*'
+        }
+
+      }
+      steps {
+        sh 'ci/component-test.sh'
+        sh 'echo done'
       }
     }
 
