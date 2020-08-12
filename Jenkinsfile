@@ -56,6 +56,7 @@ pipeline {
 
     stage('push docker app') {
       environment {
+        docker_username = 'fcbfreak'
         DOCKERCREDS = credentials('Docker')
       }
       steps {
