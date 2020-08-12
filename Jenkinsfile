@@ -33,6 +33,21 @@ pipeline {
           }
         }
 
+        stage('test app') {
+          agent {
+            docker {
+              image 'gradle:jdk11'
+            }
+
+          }
+          options {
+            skipDefaultCheckout(true)
+          }
+          steps {
+            unstash 'code'
+          }
+        }
+
       }
     }
 
