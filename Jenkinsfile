@@ -73,12 +73,13 @@ pipeline {
     stage('Component Test') {
       when {
         not {
-          branch 'dev/'
+          branch 'dev/*'
         }
 
       }
       steps {
-        sh 'sh \'ci/component-test.sh\''
+        sh 'ci/component-test.sh'
+        sh 'echo done'
       }
     }
 
