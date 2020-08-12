@@ -55,6 +55,9 @@ pipeline {
     }
 
     stage('push docker app') {
+      when {
+        branch 'master'
+      }
       environment {
         docker_username = 'fcbfreak'
         DOCKERCREDS = credentials('Docker')
